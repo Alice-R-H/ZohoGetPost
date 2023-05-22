@@ -16,11 +16,11 @@ Use to enable refresh access token if the current token has expired.
 
 - "Refresh access token"
 Refresh access token if the current token has expired, stores new token and rewrites the expiry date.
-             - currently not working, you will need to input a new code, response "code_invalid".
+Currently not working, you will need to input a new code, response "code_invalid".
 
 - "Get a ticket"
 Gets data of a ticket using ticket number. Currently ticket # is hard-coded until the get request is working. 
-             - currently not working, response "Unauthorised". 
+Currently not working, response "Unauthorised". 
 
 Think issues are related to using the self client, although the API docs are not written well so it is hard to tell. 
 
