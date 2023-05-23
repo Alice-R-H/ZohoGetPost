@@ -62,6 +62,7 @@ namespace ZohoGetPost
             InitializeComponent();
             RefreshToken.IsEnabled = false;
             PostForAccessToken.IsEnabled = false;
+            GetATicket.IsEnabled = false;
         }
 
         public void Button_Click_Enter(object sender, RoutedEventArgs e)
@@ -142,7 +143,7 @@ namespace ZohoGetPost
 
             if (DateTime.Compare(expiryDate, localDate) < 0)
             {
-                RefreshToken.IsEnabled = true;
+                RefreshToken.IsEnabled = true;               
                 MessageBox.Show("Access token has expired, you can now access the refresh token button.");
             }
             if(theExpiryTime == null)
@@ -151,6 +152,7 @@ namespace ZohoGetPost
             }
             else
             {
+                GetATicket.IsEnabled = true;
                 MessageBox.Show("Access token is still valid.");
             }
         }
@@ -195,6 +197,9 @@ namespace ZohoGetPost
 
         public void Button_Click_GetTicket(object sender, RoutedEventArgs e)
         {          
+
+            //button only enabled once you have checked the expiry date
+
             string newAccessTokenPath = txtFolder + accessTokenTxt;
             string accessToken = txtFileMethods.ReadTxtFile(newAccessTokenPath);
 
