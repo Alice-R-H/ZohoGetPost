@@ -22,6 +22,8 @@ using RestSharp;
 using Microsoft.Extensions.Configuration.Json;
 using System.Reflection.PortableExecutable;
 using System.Diagnostics.Metrics;
+using ZohoGetPost.Methods;
+using ZohoGetPost.ObjectsForDeserialisation;
 
 namespace ZohoGetPost
 {
@@ -211,8 +213,6 @@ namespace ZohoGetPost
 
             //some saving of data will be here when the request is working, full json response string is saved into the TicketContent.txt during the switch case
         }
-
-
 
         //close
         public void Button_Click_Close(object sender, RoutedEventArgs e)

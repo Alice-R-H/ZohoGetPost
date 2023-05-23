@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ZohoGetPost.ObjectsForDeserialisation;
 
-namespace ZohoGetPost
+namespace ZohoGetPost.Methods
 {
     public class GetPostRequests
     {
@@ -19,7 +20,6 @@ namespace ZohoGetPost
 
         //base urls
         public string postUrlEU = "https://accounts.zoho.eu/oauth/v2/token";
-        public string getTicketUrlEU = "https://desk.zoho.eu/api/v1/tickets/";
 
         TxtFileMethods txtFileMethods = new TxtFileMethods();
 

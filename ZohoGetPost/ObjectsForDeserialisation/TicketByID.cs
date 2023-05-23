@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZohoGetPost
+namespace ZohoGetPost.ObjectsForDeserialisation
 {
 
     //obj for ticket info, scope: Desk.Tickets.READ
