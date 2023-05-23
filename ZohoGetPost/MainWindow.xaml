@@ -6,15 +6,14 @@
         xmlns:local="clr-namespace:ZohoGetPost"
         mc:Ignorable="d"
         Title="MainWindow" Height="525" Width="400" Background="White">
-    <Grid Margin="0,0,-97,-75">
+    <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition Width = "104"/>
             <ColumnDefinition Width = "104"/>
             <ColumnDefinition Width = "104"/>
             <ColumnDefinition Width = "104"/>
-            <ColumnDefinition Width ="104"/>
-            <ColumnDefinition Width=" 40"/>
+
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -27,12 +26,7 @@
             <RowDefinition Height="56"/>
             <RowDefinition Height="56"/>
             <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="20"/>
+
         </Grid.RowDefinitions>
         <TextBlock  Grid.Row="1" Grid.Column="1" Margin="3,10,102,28" FontSize="10" FontWeight="Bold" Background="{x:Null}" Foreground="Black" Text="E N T E R  C O D E" Grid.ColumnSpan="2" />
 
