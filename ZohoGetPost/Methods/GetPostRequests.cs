@@ -26,6 +26,8 @@ namespace ZohoGetPost.Methods
         public List<(string, string)> parameterList = new List<(string, string)>();
         public List<(string, string)> headerList = new List<(string, string)>();
 
+       
+
         // GET / POST Methods:
 
         public object Get_Request(string className, string getBaseUrl, string fullUrl, bool headers = false, bool parameters = false)
@@ -66,7 +68,14 @@ namespace ZohoGetPost.Methods
                     string ticketContentPath = txtFolder + ticketContent;
                     txtFileMethods.WriteToTxtFile(ticketContentPath, ticketByIDJson);
 
-                    string statusCode = response.StatusCode.ToString();
+                    string didThisWorkTicketByID = "Success";
+
+                    if (ticketByIDJson.Contains("invalid_code") || ticketByIDJson.Contains("errorCode"))
+                    {
+                        didThisWorkTicketByID = "Unsuccessful. Please enter a new code";
+                    }
+
+                    MessageBox.Show("Action complete for get a ticket by ID. Response status: "  + didThisWorkTicketByID);
 
                     return ticketByIDObj;
 
@@ -110,7 +119,14 @@ namespace ZohoGetPost.Methods
                     string refreshAccessTokenJson = response.Content;
                     AccessTokenOnRefresh.Root refreshedAccessTokenObj = JsonConvert.DeserializeObject<AccessTokenOnRefresh.Root>(refreshAccessTokenJson);
 
-                    string statusCode = response.StatusCode.ToString();
+                    string didThisWorkRefresh = "Success";
+
+                    if (refreshAccessTokenJson.Contains("invalid_code") || refreshAccessTokenJson.Contains("errorCode"))
+                    {
+                        didThisWorkRefresh = "Unsuccessful. Please enter a new code.";
+                    }
+
+                    MessageBox.Show("Action complete for refresh access token. Response status: " + didThisWorkRefresh);
 
                     return refreshedAccessTokenObj;
 
@@ -123,6 +139,15 @@ namespace ZohoGetPost.Methods
                     //save full json (for debugging)
                     string fullPath = txtFolder + postFirstAccess;
                     txtFileMethods.WriteToTxtFile(fullPath, newAccessTokenJson);
+
+                    string didThisWork = "Success";
+
+                    if (newAccessTokenJson.Contains("invalid_code") || newAccessTokenJson.Contains("errorCode"))
+                    {
+                        didThisWork = "Unsuccessful. Please enter a new code.";
+                    }
+                    
+                    MessageBox.Show("Action complete for get new access token. Response status: " + didThisWork);
 
                     return accessTokenObj;
 

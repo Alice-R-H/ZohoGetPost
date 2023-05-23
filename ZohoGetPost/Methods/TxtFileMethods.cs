@@ -26,10 +26,11 @@ namespace ZohoGetPost.Methods
             StreamReader readTxtFile = new StreamReader(fullPath);
 
             string fileContent = readTxtFile.ReadToEnd();
+            string fileContentCleaned = fileContent.Replace(Environment.NewLine,String.Empty);
 
             readTxtFile.Close();
 
-            return fileContent;
+            return fileContentCleaned;
         }
 
         public void WriteExpiryDate(string txtFolder, string expiryTime)
