@@ -80,6 +80,7 @@ namespace ZohoGetPost
             {
                 code = CodeInput.Text;
                 PostForAccessToken.IsEnabled = true;
+                GetATicket.IsEnabled=true;
                 MessageBox.Show("Code entered. Click get a new access token.");
             }
             else
@@ -210,7 +211,7 @@ namespace ZohoGetPost
             getPostRequests.headerList = new List<(string, string)>
               {
                         ("orgId", orgID),
-                        ("Authorisation", "Zoho-oauthtoken" +  accessToken)
+                        ("Authorization", "Zoho-oauthtoken" +  accessToken)
                };
 
             //do the api get

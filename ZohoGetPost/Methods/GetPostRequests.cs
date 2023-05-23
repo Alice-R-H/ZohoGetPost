@@ -45,7 +45,7 @@ namespace ZohoGetPost.Methods
             }
             if (headers)
             {
-                foreach (var header in parameterList)
+                foreach (var header in headerList)
                 {
                     request.AddHeader(header.Item1, header.Item2);
                 }
@@ -94,7 +94,7 @@ namespace ZohoGetPost.Methods
             }
             if (headers)
             {
-                foreach (var header in parameterList)
+                foreach (var header in headerList)
                 {
                     request.AddHeader(header.Item1, header.Item2);
                 }
