@@ -17,6 +17,8 @@ namespace ZohoGetPost.Methods
 
         public string postFirstAccess = "ZohoFirstAccessTokenJson.txt";
         public string ticketContent = "TicketContent.txt";
+        public string noTicketsThisWeek = "NumTicketsThisWeek.txt";
+        public string listAllContacts = "AllContactsJson.txt";
 
         //base urls
         public string postUrlEU = "https://accounts.zoho.eu/oauth/v2/token";
@@ -60,27 +62,96 @@ namespace ZohoGetPost.Methods
             {
                 case "TicketByID":
 
-                    //this is where oAuth error occuring, response is "Unauthorised"
-
                     string ticketByIDJson = response.Content;
-                    TicketByID.Root ticketByIDObj = JsonConvert.DeserializeObject<TicketByID.Root>(ticketByIDJson);
-
-                    string ticketContentPath = txtFolder + ticketContent;
-                    txtFileMethods.WriteToTxtFile(ticketContentPath, ticketByIDJson);
-
                     string didThisWorkTicketByID = "Success";
 
-                    if (ticketByIDJson.Contains("invalid_code") || ticketByIDJson.Contains("errorCode"))
+                    try
                     {
-                        didThisWorkTicketByID = "Unsuccessful. Please enter a new code";
+                        TicketByID.Root ticketByIDObj = JsonConvert.DeserializeObject<TicketByID.Root>(ticketByIDJson);
+
+                        
+
+                        string ticketContentPath = txtFolder + ticketContent;
+                        txtFileMethods.WriteToTxtFile(ticketContentPath, ticketByIDJson);
+
+
+                        if (ticketByIDJson.Contains("invalid_code") || ticketByIDJson.Contains("errorCode") || ticketByIDJson == null)
+                        {
+                            didThisWorkTicketByID = "Unsuccessful. Ticket ID may be incorrect.";
+                        }
+
+                        MessageBox.Show("Action complete for get a ticket by ID. Response status: " + didThisWorkTicketByID);
+
+                        return ticketByIDObj;
+                    }
+                    catch (Exception ex) 
+                    {
+
+                        MessageBox.Show("An error occured. Exception thrown:" + ex + " You might need to enter a new code:");
+                        return null;
                     }
 
-                    MessageBox.Show("Action complete for get a ticket by ID. Response status: "  + didThisWorkTicketByID);
+                case "AllTickets":
 
-                    return ticketByIDObj;
+                    string ticketsThisWeekJson = response.Content;              
+                    string didThisWorkTicketsThisWeek = "Success";
+
+                    try
+                    {
+                        AllTickets.Root ticketsFromThisWeek = JsonConvert.DeserializeObject<AllTickets.Root>(ticketsThisWeekJson);
+
+                        string ticketContentPath = txtFolder + ticketContent;
+                        txtFileMethods.WriteToTxtFile(ticketContentPath, ticketsThisWeekJson);
+
+
+                        if (ticketsThisWeekJson.Contains("invalid_code") || ticketsThisWeekJson.Contains("error") || ticketsThisWeekJson == null)
+                        {
+                            didThisWorkTicketByID = "Unsuccessful. Ticket ID may be incorrect.";
+                        }
+
+                        MessageBox.Show("Action complete. Response status: " + didThisWorkTicketsThisWeek);
+
+                        return ticketsFromThisWeek;
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show("An error occured. Exception thrown:" + ex + " You might need to enter a new code:");
+                        return null;
+                    }
+
+
+                case "No.TicketsThisWeek":
+
+                    string noticketsThisWeekJson = response.Content;
+                    string didNoThisWorkTicketsThisWeek = "Success";
+
+                    try
+                    {
+                        NumTicketsThisWeek.Root ticketsFromThisWeek = JsonConvert.DeserializeObject<NumTicketsThisWeek.Root>(noticketsThisWeekJson);
+
+                        string ticketContentPath = txtFolder + noTicketsThisWeek;
+                        txtFileMethods.WriteToTxtFile(ticketContentPath, noticketsThisWeekJson);
+
+
+                        if (noticketsThisWeekJson.Contains("invalid_code") || noticketsThisWeekJson.Contains("errorCode") || noticketsThisWeekJson == null)
+                        {
+                            didThisWorkTicketByID = "Unsuccessful.";
+                        }
+
+                        MessageBox.Show("Action complete. Response status: " + didNoThisWorkTicketsThisWeek);
+
+                        return ticketsFromThisWeek;
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show("An error occured. Exception thrown:" + ex + " You might need to enter a new code:");
+                        return null;
+                    }
 
                 default:
-                    return MessageBox.Show("Class not found.");
+                    return null;
             }
 
         }
@@ -117,24 +188,36 @@ namespace ZohoGetPost.Methods
                 case "AccessTokenOnRefresh":
 
                     string refreshAccessTokenJson = response.Content;
-                    AccessTokenOnRefresh.Root refreshedAccessTokenObj = JsonConvert.DeserializeObject<AccessTokenOnRefresh.Root>(refreshAccessTokenJson);
+                    try
+                    {
+                        AccessTokenOnRefresh.Root refreshedAccessTokenObj = JsonConvert.DeserializeObject<AccessTokenOnRefresh.Root>(refreshAccessTokenJson);
 
                     string didThisWorkRefresh = "Success";
 
-                    if (refreshAccessTokenJson.Contains("invalid_code") || refreshAccessTokenJson.Contains("errorCode"))
+                            if (refreshAccessTokenJson.Contains("invalid_code") || refreshAccessTokenJson.Contains("errorCode") || refreshAccessTokenJson == null)
+                            {
+                                didThisWorkRefresh = "Unsuccessful. Please enter a new code.";
+                            }
+
+                            MessageBox.Show("Action complete for refresh access token. Response status: " + didThisWorkRefresh);
+
+                            return refreshedAccessTokenObj;
+                     }
+
+                    catch (Exception ex) 
                     {
-                        didThisWorkRefresh = "Unsuccessful. Please enter a new code.";
+
+                    MessageBox.Show("An error occured. Exception thrown:" + ex + " You might need to enter a new code:");
+
+                    return null;
                     }
-
-                    MessageBox.Show("Action complete for refresh access token. Response status: " + didThisWorkRefresh);
-
-                    return refreshedAccessTokenObj;
-
 
                 case "AccessTokenObj":
 
                     string newAccessTokenJson = response.Content;
-                    AccessTokenObj.Root accessTokenObj = JsonConvert.DeserializeObject<AccessTokenObj.Root>(newAccessTokenJson);
+                    try
+                    {
+                        AccessTokenObj.Root accessTokenObj = JsonConvert.DeserializeObject<AccessTokenObj.Root>(newAccessTokenJson);
 
                     //save full json (for debugging)
                     string fullPath = txtFolder + postFirstAccess;
@@ -142,17 +225,26 @@ namespace ZohoGetPost.Methods
 
                     string didThisWork = "Success";
 
-                    if (newAccessTokenJson.Contains("invalid_code") || newAccessTokenJson.Contains("errorCode"))
-                    {
-                        didThisWork = "Unsuccessful. Please enter a new code.";
-                    }
+                            if (newAccessTokenJson.Contains("invalid_code") || newAccessTokenJson.Contains("errorCode") || newAccessTokenJson == null)
+                            {
+                                didThisWork = "Unsuccessful. Please enter a new code.";
+                            }
                     
-                    MessageBox.Show("Action complete for get new access token. Response status: " + didThisWork);
+                            MessageBox.Show("Action complete for get new access token. Response status: " + didThisWork);
 
-                    return accessTokenObj;
+
+                            return accessTokenObj;
+                    }
+
+                    catch (Exception ex) 
+                    {
+
+                        MessageBox.Show("An error occured. Exception thrown:" + ex + " You might need to enter a new code:");
+                        return null;
+                    }
 
                 default:
-                    return MessageBox.Show("Class not found.");
+                    return null;
             }
 
         }

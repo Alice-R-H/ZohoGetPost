@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZohoGetPost"
         mc:Ignorable="d"
-        Title="MainWindow" Height="566" Width="527" Background="White">
+        Title="MainWindow" Height="776" Width="526" Background="White">
     <Grid Margin="0,0,10,-10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
@@ -30,6 +30,7 @@
 
         <TextBlock Grid.Column="1" Margin="8,25,59,10" FontSize="10" FontWeight="Bold" Background="{x:Null}" Foreground="Black" Text="E N T E R  C O D E" Grid.ColumnSpan="2" Grid.Row="1" />
         <TextBlock  Grid.Row="5" Grid.Column="1" Margin="8,50,38,42" FontSize="10" FontWeight="Bold" Background="{x:Null}" Foreground="Black" Text="E N T E R  T I C K E T  I D" Grid.ColumnSpan="3" Grid.RowSpan="2" />
+        <TextBlock  Grid.Row="9" Grid.Column="1" Margin="8,17,38,19" FontSize="10" FontWeight="Bold" Background="{x:Null}" Foreground="Black" Text="T I C K E T   S T A T U S" Grid.ColumnSpan="3" />
 
         <TextBox Grid.Column="1" Margin="0,46,98,31" Padding="5,8,0,0" Grid.Row="1" x:Name="CodeInput" Grid.ColumnSpan="4" Panel.ZIndex="1" FontWeight="Bold" BorderBrush="{x:Null}" Background="Black" Foreground="White" Opacity="0.65" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" >
             <TextBox.Resources>
@@ -52,6 +53,27 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Button x:Name="GetAllContacts" Content="G E T  A L L  C O N T A C T S" Margin="0,106,-11,-94" Grid.Row="9" Click="Button_Click_GetContacts" Panel.ZIndex="2" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="Black" Opacity="0.8" FontFamily="Segoe UI" FontSize="10" Grid.Column="1" Grid.ColumnSpan="4">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="TicketsThisWeek" Content="T I C K E T S  T H I S  W E E K" Margin="0,12,-11,0" Grid.Row="8" Click="Button_Click_GetTicketsThisWeek" Panel.ZIndex="2" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="Black" Opacity="0.8" FontFamily="Segoe UI" FontSize="10" Grid.Column="1" Grid.ColumnSpan="4">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="TicketsStatus" Content="G E T  T I C K E T S  B Y  S T A T U S" Margin="78,46,-11,-35" Grid.Row="9" Click="Button_Click_GetTicketsByStatus" Panel.ZIndex="2" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="Black" Opacity="0.8" FontFamily="Segoe UI" FontSize="10" Grid.ColumnSpan="3" Grid.Column="2">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Button x:Name="EnterCodeButton" Content="E N T E R" Margin="14,46,-11,31" Grid.Row="1" Click="Button_Click_EnterCode" Panel.ZIndex="2" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="Black" Opacity="0.8" FontFamily="Segoe UI" FontSize="10" Grid.Column="4" Grid.RowSpan="2">
             <Button.Resources>
                 <Style TargetType="Border">
@@ -66,6 +88,7 @@
                 </Style>
             </Button.Resources>
         </Button>
+
         <Button x:Name="PostForAccessToken" Content="G E T  A  N E W  A C C E S S  T O K E N" Grid.Row="2" Click="Button_Click_Get_New" Panel.ZIndex="2" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="Black" Opacity="0.8" FontFamily="Segoe UI" FontSize="10" Height="44" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="4" Margin="0,35,-11,0" Grid.RowSpan="2">
             <Button.Resources>
                 <Style TargetType="Border">
@@ -80,7 +103,15 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="Close" Content="C L O S E" Margin="0,45,5,28" Grid.Row="8" Click="Button_Click_Close" Panel.ZIndex="2" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="Black" FontFamily="Segoe UI" Opacity="0.8" FontSize="10" Grid.Column="1" Grid.RowSpan="2">
+
+        <ComboBox x:Name="statusComboBox" SelectedIndex="0"
+                  Grid.Row="9" Grid.Column="1" Margin="8,46,44,-12" Grid.ColumnSpan="2">
+            <ComboBoxItem>Open</ComboBoxItem>
+            <ComboBoxItem>Closed</ComboBoxItem>
+            <ComboBoxItem>Awaiting Customer</ComboBoxItem>
+            <ComboBoxItem>Awaiting Developer</ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="Close" Content="C L O S E" Margin="0,188,6,-171" Grid.Row="9" Click="Button_Click_Close" Panel.ZIndex="2" FontWeight="Bold" Foreground="White" BorderBrush="{x:Null}" Background="Black" FontFamily="Segoe UI" Opacity="0.8" FontSize="10" Grid.Column="1">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

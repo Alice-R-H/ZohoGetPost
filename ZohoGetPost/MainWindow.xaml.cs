@@ -81,6 +81,10 @@ namespace ZohoGetPost
             {
                 MessageBox.Show("Access token is still valid.");
             }
+            else if (zohoInteraction.Check_If_Token_Expired() == true)
+            {
+                MessageBox.Show("Access token has expired, please use the refresh token button.");
+            }
 
         }
 
@@ -89,11 +93,21 @@ namespace ZohoGetPost
             //the "refresh token" button
             //returning "invalid_code" issue
 
-            if (zohoInteraction.Check_If_Token_Expired() == false)
+            if (zohoInteraction.Check_If_Token_Expired() == true)
             {
                 zohoInteraction.Refresh_Access_Token();
             }
-            
+            else if (zohoInteraction.Check_If_Token_Expired() == false)
+            {
+                if (MessageBox.Show("The current token has not expired. Are you sure you want a new one?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                {
+
+                }
+                else
+                {
+                    zohoInteraction.Refresh_Access_Token();
+                }
+            }
         }
 
         public void Button_Click_EnterTicketID(object sender, RoutedEventArgs e)
@@ -120,11 +134,43 @@ namespace ZohoGetPost
                 MessageBox.Show("You need to add a ticket ID first.");
 
             }
+            else if(zohoInteraction.Check_If_Token_Expired() == true)
+            {
+                MessageBox.Show("Access token has expired, please use the refresh token button.");
+            }              
             else if(zohoInteraction.Check_If_Token_Expired() == false)               
             {
                 zohoInteraction.Get_A_Ticket_By_ID(ticketID);
             }          
         }
+
+        public void Button_Click_GetTicketsThisWeek(object sender, RoutedEventArgs e)
+        {
+            zohoInteraction.Get_Tickets_Within_One_Week();
+        }
+
+        public void Button_Click_GetTicketsByStatus(object sender, RoutedEventArgs e)
+        {
+            string statusType = statusComboBox.SelectedItem.ToString();
+            const string prefixToRemove = "System.Windows.Controls.ComboBoxItem: ";
+            string cleanedStatusType = statusType.Replace(prefixToRemove, string.Empty);
+
+            if (cleanedStatusType != null)
+            {
+                zohoInteraction.Get_Tickets_By_Status(cleanedStatusType);
+            }
+            else
+            {
+                MessageBox.Show("Please select a status.");
+            }
+            
+        }
+
+        public void Button_Click_GetContacts(object sender, RoutedEventArgs e)
+        {
+            zohoInteraction.List_Contacts();
+        }
+
 
         public void Button_Click_Close(object sender, RoutedEventArgs e)
         {
