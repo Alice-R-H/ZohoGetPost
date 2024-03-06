@@ -22,8 +22,6 @@ Currently not working, you will need to input a new code for a new access token,
 Gets data of a ticket using ticket number. Currently ticket # is hard-coded until the get request is working. 
 Currently not working, response "Unauthorised". 
 
-Think issues are related to using the self client, although the API docs are not written well so it is hard to tell. 
-
 Creates these .txt files in C:\Temp\
 
         ZohoFirstAccessTokenJson.txt
